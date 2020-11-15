@@ -1,14 +1,16 @@
 import pygame
 import huntandkill
+import growingtree
 import grid
 import solver
 import window
 
 # Screen and grid constants
 WIDTH = 800
-ROWS = 80
+ROWS = 10
 COLS = ROWS
 
+YELLOW    = (255, 255,   0)
 
 ## Main
 def main():
@@ -67,7 +69,21 @@ def main():
                     g = grid.Grid(ROWS, COLS, WIDTH)
                     huntandkill.generate(surface, g, False)
 
-                # Reset maze
+                # 'B' will generate a new maze using the growing tree algorithm in backtrack mode
+                if event.key == pygame.K_b:
+                    start = None
+                    end = None
+                    g = grid.Grid(ROWS, COLS, WIDTH)
+                    growingtree.generate(surface, g, "Backtrack", True)
+
+                # 'P' will generate a new maze using the growing tree algorithm in random (Prim's) mode
+                if event.key == pygame.K_p:
+                    start = None
+                    end = None
+                    g = grid.Grid(ROWS, COLS, WIDTH)
+                    growingtree.generate(surface, g, "Random", True)
+
+                # 'R' will reset the maze (remove solution)
                 if event.key == pygame.K_r:
                     for row in g.grid:
                         for cell in row:
@@ -79,7 +95,7 @@ def main():
                                 cell.reset()
 
                 # Run A* algorithm to find the shortest path between start and end
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and start != None and end != None:
                     for row in g.grid:
                         for cell in row:
                             cell.update_accessible_neighbors(g.grid)
