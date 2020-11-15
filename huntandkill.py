@@ -1,3 +1,4 @@
+import window
 import random
 import time
 
@@ -22,7 +23,7 @@ def walk(surface, g, current_cell, animate):
 
         if animate:
             # Update the screen
-            draw(surface, g.grid)
+            window.draw(surface, g.grid)
 
             # Delay
             time.sleep(0.05)
@@ -49,7 +50,7 @@ def hunt(surface, g, animate):
 
                     if animate:
                         # Update the screen
-                        draw(surface, grid)
+                        window.draw(surface, g.grid)
 
                         # Delay
                         time.sleep(0.05)
@@ -75,5 +76,3 @@ def generate(surface, g, animate):
 
         #
         current_cell = hunt(surface, g, animate)
-
-#######################################3

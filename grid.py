@@ -17,20 +17,20 @@ class Grid:
     def remove_walls_between(self, c1, c2):
         if c1.row < c2.row:
             # c1 is above c2
-            c1.remove_wall("Bottom")
-            c2.remove_wall("Top")
+            c1.remove_wall("South")
+            c2.remove_wall("North")
 
         elif c1.row > c2.row:
             # c1 is below c2
-            c1.remove_wall("Top")
-            c2.remove_wall("Bottom")
+            c1.remove_wall("North")
+            c2.remove_wall("South")
 
         elif c1.col < c2.col:
             # c1 is to the left of c2
-            c1.remove_wall("Right")
-            c2.remove_wall("Left")
+            c1.remove_wall("East")
+            c2.remove_wall("West")
 
         elif c1.col > c2.col:
             # c1 is to the right of c2
-            c1.remove_wall("Left")
-            c2.remove_wall("Right")
+            c1.remove_wall("West")
+            c2.remove_wall("East")
