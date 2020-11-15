@@ -33,7 +33,7 @@ class Cell:
         self.x = col * self.width
         self.y = row * self.height
 
-        self.walls = {"Top":True, "Bottom":True, "Left":True, "Right":True}
+        self.walls = {"North":True, "South":True, "West":True, "East":True}
 
         self.accessible_neighbors = []
         self.unvisited_neighbors = []
@@ -78,38 +78,38 @@ class Cell:
         pygame.draw.rect(surface, self.color, (self.x, self.y, self.width, self.height))
 
         # Upper Wall
-        if self.walls["Top"]:
+        if self.walls["North"]:
             pygame.draw.line(surface, WALL_COLOR, [self.x, self.y], [self.x + self.width, self.y], wall_size)
 
         # Lower Wall
-        if self.walls["Bottom"]:
+        if self.walls["South"]:
             pygame.draw.line(surface, WALL_COLOR, [self.x, self.y + self.height], [self.x + self.width, self.y + self.height], wall_size)
 
         # Left Wall
-        if self.walls["Left"]:
+        if self.walls["West"]:
             pygame.draw.line(surface, WALL_COLOR, [self.x, self.y], [self.x, self.y + self.height], wall_size)
 
         # Right Wall
-        if self.walls["Right"]:
+        if self.walls["East"]:
             pygame.draw.line(surface, WALL_COLOR, [self.x + self.width, self.y], [self.x + self.width, self.y + self.height], wall_size)
 
     def update_accessible_neighbors(self, grid):
         self.accessible_neighbors = []
 
         # Check for an accessible neighbor in the DOWN direction
-        if self.row < self.total_rows - 1 and not self.walls["Bottom"]:
+        if self.row < self.total_rows - 1 and not self.walls["South"]:
             self.accessible_neighbors.append(grid[self.row + 1][self.col])
 
         # Check for an accessible neighbor in the UP direction
-        if self.row > 0 and not self.walls["Top"]:
+        if self.row > 0 and not self.walls["North"]:
             self.accessible_neighbors.append(grid[self.row - 1][self.col])
 
         # Check for an accessible neighbor in the LEFT direction
-        if self.col > 0 and not self.walls["Left"]:
+        if self.col > 0 and not self.walls["West"]:
             self.accessible_neighbors.append(grid[self.row][self.col - 1])
 
         # Check for an accessible neighbor in the RIGHT direction
-        if self.col < self.total_cols - 1 and not self.walls["Right"]:
+        if self.col < self.total_cols - 1 and not self.walls["East"]:
             self.accessible_neighbors.append(grid[self.row][self.col + 1])
 
     def update_unvisited_neighbors(self, grid):
@@ -153,3 +153,24 @@ class Cell:
     # Remove a single wall (Top, Bottom, Left, or Right)
     def remove_wall(self, wall):
         self.walls[wall] = False
+
+    # Return the neighbor in a given direction relative to self. If no such
+    # neighbor exists, return None
+    def get_neighbor(self, grid, direction):
+        if direction == "North":
+            if self.row > 0:
+                return grid[self.row - 1][self.col]
+
+        elif direction == "South":
+            if self.row < self.total_rows - 1:
+                return grid[self.row + 1][self.col]
+
+        elif direction == "West":
+            if self.col > 0:
+                return grid[self.row][self.col - 1]
+
+        elif direction == "East":
+            if self.col < self.total_cols - 1:
+                return grid[self.row][self.col + 1]
+
+        return None
