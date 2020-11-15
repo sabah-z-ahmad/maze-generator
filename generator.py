@@ -1,6 +1,7 @@
 import pygame
 import huntandkill
 import growingtree
+import binarytree
 import grid
 import solver
 import window
@@ -67,7 +68,7 @@ def main():
                     start = None
                     end = None
                     g = grid.Grid(ROWS, COLS, WIDTH)
-                    huntandkill.generate(surface, g, False)
+                    huntandkill.generate(surface, g, True)
 
                 # 'B' will generate a new maze using the growing tree algorithm in backtrack mode
                 if event.key == pygame.K_b:
@@ -82,6 +83,14 @@ def main():
                     end = None
                     g = grid.Grid(ROWS, COLS, WIDTH)
                     growingtree.generate(surface, g, "Random", True)
+
+                # 'T' will generate a new maze using the binary tree algorithm
+                # Available modes are NE, NW, SE, and SW
+                if event.key == pygame.K_t:
+                    start = None
+                    end = None
+                    g = grid.Grid(ROWS, COLS, WIDTH)
+                    binarytree.generate(surface, g, "NE", True)
 
                 # 'R' will reset the maze (remove solution)
                 if event.key == pygame.K_r:
