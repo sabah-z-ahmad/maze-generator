@@ -1,6 +1,7 @@
 import window
 import random
 import time
+import pygame
 
 
 ## Maze generation functions
@@ -33,6 +34,10 @@ def walk(surface, g, current_cell, animate):
 def hunt(surface, g, animate):
     for row in g.grid:
         for cell in row:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    
             # If cell is not visited
             if not cell.is_visited():
                 cell.update_visited_neighbors(g.grid)
