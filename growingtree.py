@@ -1,6 +1,7 @@
 import random
 import time
 import window
+import pygame
 
 
 ## Maze generation functions
@@ -8,6 +9,10 @@ import window
 def walk(surface, g, current_cell, visited_list, animate):
     # Loop until the current cell has no unvisited neighbors
     while len(current_cell.unvisited_neighbors) > 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                
         # Choose a random unvisited neighbor as a new cell
         new_cell = current_cell.unvisited_neighbors[int(random.random() * len(current_cell.unvisited_neighbors)) - 1]
 
