@@ -61,7 +61,7 @@ def main():
             if event.type == pygame.KEYDOWN:
                 # 'C' will reset the grid
                 if event.key == pygame.K_c:
-                    g = grid.Grid(ROWS, COLS)
+                    g = grid.Grid(ROWS, COLS, WIDTH)
 
                 # 'H' will generate a new maze using the hunt and kill algorithm
                 if event.key == pygame.K_h:
