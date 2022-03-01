@@ -1,6 +1,8 @@
 import random
 import time
 import window
+import pygame
+
 
 # This function chooses valid neighbors to the provided cell in the relative
 # directions according to the desired mode (NE, NW, SE, or SW). It then chooses
@@ -65,6 +67,10 @@ def generate(surface, g, mode, animate):
 
     # Loop until all grid cells have been visited
     while len(unvisited_list) > 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                
         #
         current_cell = unvisited_list[int(random.random() * len(unvisited_list)) - 1]
         current_cell.set_visited()
